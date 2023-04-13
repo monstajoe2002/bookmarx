@@ -8,5 +8,7 @@
 
 
 <Container>
+  <ActiveTabs/>
+  <BookmarkGroup/>
 </Container>
 

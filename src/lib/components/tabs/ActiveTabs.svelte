@@ -2,7 +2,8 @@
   import Tab from "./Tab.svelte";
 </script>
 
-<div class="row overflow-x-auto flex-nowrap shadow p-4 rounded bg-secondary-subtle mb-4">
+<div class="flex max-w-full justify-start overflow-x-auto shadow-xl p-6 gap-4 rounded-md mb-8">
+  <Tab />
   <Tab />
   <Tab />
   <Tab />
