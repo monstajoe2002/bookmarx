@@ -1,3 +1,3 @@
-<div class="d-flex container-lg justify-content-center align-items-center">
+<div class="container-lg justify-content-center align-items-center">
 <slot/>
 </div>
