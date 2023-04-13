@@ -1,13 +1,14 @@
 <script>
   import Bookmark from "../bookmarks/Bookmark.svelte";
+  import { Button } from "flowbite-svelte";
 </script>
 
-<div class="bg-primary-subtle rounded p-4 shadow">
-  <div class="d-flex justify-content-between">
-    <h2>My Favorite Bookmarks</h2>
-    <button class="btn btn-success">New Bookmark</button>
+<div class="bg-blue-200 rounded-md p-8 max-w-screen">
+  <div class="flex justify-between">
+    <h1 class="text-4xl font-semibold dark:text-white">Docs</h1>
+    <Button>New Bookmark</Button>
   </div>
-  <div class="row row-cols-2 row-gap-4 my-4">
+  <div class="grid grid-cols-2 my-8 gap-4 items-center">
     <Bookmark />
     <Bookmark />
     <Bookmark />

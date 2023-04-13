@@ -1,3 +1,8 @@
-<div class="container-lg justify-content-center align-items-center">
-<slot/>
+<script>
+  import Header from "../lib/components/misc/Header.svelte";
+</script>
+
+<div class="flex flex-col  justify-center max-w-screen-lg  mx-auto">
+  <Header />
+  <slot />
 </div>
