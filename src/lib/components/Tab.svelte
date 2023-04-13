@@ -6,7 +6,9 @@
       >
         Special title treatment for you bebebebe
       </h5>
-      <button class="btn btn-primary">Go to Tab</button>
+      <button class="btn btn-primary">
+        <i class="bi bi-arrow-right"></i>
+      </button>
     </div>
   </div>
 </div>
