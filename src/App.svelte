@@ -1,8 +1,9 @@
 <script lang="ts">
- 
+  import Container from "./layout/Container.svelte";
+  import ActiveTabs from "./lib/components/ActiveTabs.svelte";
 </script>
 
-<div>
-  <h1>Hello</h1>
-</div>
+<Container>
+  <ActiveTabs/>
+</Container>
 
