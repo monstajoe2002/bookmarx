@@ -3,6 +3,6 @@
 </script>
 
 <div class="container-lg justify-content-center align-items-center">
-  <Header />
+  
   <slot />
 </div>
