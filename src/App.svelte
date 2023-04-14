@@ -10,7 +10,7 @@
 
 <Container>
   <ActiveTabs/>
-  <!-- <BookmarkGroup/> -->
-  <BookmarkGroupFallback/>
+  <BookmarkGroup/>
+  <!-- <BookmarkGroupFallback/> -->
 </Container>
 

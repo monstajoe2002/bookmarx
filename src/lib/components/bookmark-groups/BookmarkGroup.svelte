@@ -1,6 +1,7 @@
 <script>
   import Bookmark from "../bookmarks/Bookmark.svelte";
   import { Button } from "flowbite-svelte";
+  import BookmarkFallback from "../bookmarks/BookmarkFallback.svelte";
 </script>
 
 <div class="bg-blue-200 rounded-md p-8 max-w-screen">
@@ -8,10 +9,5 @@
     <h1 class="text-4xl font-semibold dark:text-white">Docs</h1>
     <Button>New Bookmark</Button>
   </div>
-  <div class="grid grid-cols-2 my-8 gap-4 items-center">
-    <Bookmark />
-    <Bookmark />
-    <Bookmark />
-    <Bookmark />
-  </div>
+  <BookmarkFallback/>
 </div>
