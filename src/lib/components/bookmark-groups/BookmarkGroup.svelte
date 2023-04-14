@@ -26,5 +26,10 @@
       </form>
     </ModalButton>
   </div>
-  <BookmarkFallback />
+  <div class="grid grid-cols-2 gap-4 my-8">
+    <Bookmark/>
+    <Bookmark/>
+    <Bookmark/>
+    <Bookmark/>
+  </div>
 </div>
