@@ -9,6 +9,6 @@
     <NavLi href="/">Sign Up</NavLi>
   </NavUl>
   <div class="flex md:order-2">
-    <Button size="sm">Get started</Button>
+    <Button size="sm">New Bookmark Group</Button>
   </div>
 </Navbar>
