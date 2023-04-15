@@ -22,3 +22,9 @@ chrome.tabs.onUpdated.addListener((tabId, tab) => {
     return tabs;
   });
 });
+
+chrome.tabs.onRemoved.addListener((tabId) => {
+  activeTabs.update((tabs) => {
+    return tabs.filter((tab) => tab.id !== tabId);
+  });
+});
