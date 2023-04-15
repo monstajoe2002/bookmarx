@@ -12,3 +12,13 @@ chrome.tabs.onCreated.addListener((tab) => {
     return [...tabs, { id: tab.id, name: tab.title } as Tab];
   });
 });
+
+chrome.tabs.onUpdated.addListener((tabId, tab) => {
+  activeTabs.update((tabs) => {
+    const index = tabs.findIndex((tab) => tab.id === tabId);
+    if (index !== -1) {
+      tabs[index].name = tab.title;
+    }
+    return tabs;
+  });
+});
