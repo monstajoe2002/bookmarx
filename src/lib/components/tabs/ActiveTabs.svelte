@@ -14,7 +14,9 @@
     class="flex max-w-full overflow-x-auto shadow-xl p-6 gap-4 rounded-md mb-8 bg-slate-200 dark:bg-slate-100"
   >
     {#each $activeTabs as { name, id } (id)}
-      <Tab {name} />
+      {#if name}
+        <Tab {name} />
+      {/if}
     {/each}
   </div>
 {/if}
