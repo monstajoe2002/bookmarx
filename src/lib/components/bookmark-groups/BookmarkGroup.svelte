@@ -21,7 +21,9 @@
         class="flex flex-col space-y-6"
         action="#"
         on:submit|preventDefault={() => {
-          createBookmark(bookmarkName, bookmarkUrl, id);
+          createBookmark(bookmarkName, bookmarkUrl, id).catch(() => {
+            showError = true;
+          });
         }}
       >
         <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
