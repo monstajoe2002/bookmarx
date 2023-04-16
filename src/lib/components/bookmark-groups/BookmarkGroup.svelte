@@ -58,9 +58,6 @@
       </form>
       {#if showError}
         <ErrorAlert>
-          <span slot="icon">
-            <i class="bi bi-exclamation-circle-fill" />
-          </span>
           <svelte:fragment slot="message">
             An error occured while creating the bookmark.
           </svelte:fragment>

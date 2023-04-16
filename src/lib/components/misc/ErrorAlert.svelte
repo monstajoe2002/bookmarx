@@ -3,6 +3,8 @@
 </script>
 
 <Alert color="red" dismissable>
-  <slot name="icon" />
+  <span slot="icon">
+    <i class="bi bi-exclamation-circle-fill" />
+  </span>
   <slot name="message" />
 </Alert>
