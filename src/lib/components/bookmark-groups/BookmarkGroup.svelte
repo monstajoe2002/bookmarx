@@ -7,9 +7,8 @@
   import ErrorAlert from "../misc/ErrorAlert.svelte";
   export let name: string;
   export let id: string;
-  export let groupBookmarks: Bookmark[];
-  let bookmarkName: string;
-  let bookmarkUrl: string;
+  $: bookmarkName = "";
+  $: bookmarkUrl = "";
   $: showError = false;
 </script>
 
@@ -22,13 +21,7 @@
         class="flex flex-col space-y-6"
         action="#"
         on:submit|preventDefault={() => {
-          createBookmark(bookmarkName, bookmarkUrl, {
-            id,
-            name,
-            bookmarks: groupBookmarks,
-          }).catch(() => {
-            showError = true;
-          });
+          createBookmark(bookmarkName, bookmarkUrl, id);
         }}
       >
         <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
@@ -69,7 +62,9 @@
     <BookmarkFallback />
   {:else}
     <div class="grid grid-cols-2 grid-rows-2 gap-4 my-8">
-      <BookmarkCard name={bookmarkName} />
+      {#each $bookmarks as { name }}
+        <BookmarkCard {name} />
+      {/each}
     </div>
   {/if}
 </div>

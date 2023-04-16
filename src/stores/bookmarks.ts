@@ -17,15 +17,32 @@ export const bookmarks = writable<Bookmark[]>(data);
 export async function createBookmark(
   name: string,
   url: string,
-  group: BookmarkGroup
+  groupId: string
 ) {
-  const bookmarkGroupRef = doc(db, "bookmarkGroups", group.id);
-  const bookmark = { name, url, group };
-  await setDoc(bookmarkGroupRef, {
-    bookmarks: [...group.bookmarks, bookmark],
+  const bookmarkRef = await addDoc(collection(db, "bookmarks"), {
+    name,
+    url,
+    groupId
   });
+  const bookmarkGroupRef = doc(db, "bookmarkGroups", groupId);
+  const bookmarkGroup = await getDoc(bookmarkGroupRef);
+  const bookmark=await getDoc(bookmarkRef)
+  // await setDoc(bookmarkGroupRef, {
+  //   bookmarks: [...bookmarkGroup.data().bookmarks, bookmarkRef.id],
+  // });
+  await setDoc(bookmarkGroupRef,{
+    bookmarks: [...bookmarkGroup.data().bookmarks, bookmark.data()]
+  })
   bookmarks.update((bookmarks) => {
-    return [...bookmarks, bookmark as Bookmark];
+    return [
+      ...bookmarks,
+      {
+        id: bookmarkRef.id,
+        name,
+        url,
+        group: bookmarkGroup.data(),
+      } as Bookmark,
+    ];
   });
 }
 

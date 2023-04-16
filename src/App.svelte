@@ -16,7 +16,6 @@
         this={BookmarkGroup}
         {name}
         {id}
-        groupBookmarks={bookmarks}
       />
     {/each}
   {/if}
