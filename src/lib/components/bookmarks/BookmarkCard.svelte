@@ -1,13 +1,14 @@
-<script>
+<script lang="ts">
   import { Card, Button, Label, Input } from "flowbite-svelte";
   import ModalButtonWithIcon from "../misc/ModalButtonWithIcon.svelte";
+  export let name: string;
 </script>
 
 <Card horizontal class="flex justify-between">
   <h4
     class="my-auto text-xl font-bold tracking-tight text-gray-900 dark:text-white line-clamp-1"
   >
-    Bookmark
+    {name}
   </h4>
 
   <div>

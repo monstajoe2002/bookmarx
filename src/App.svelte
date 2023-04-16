@@ -11,8 +11,13 @@
   {#if !$bookmarkGroups.length}
     <BookmarkGroupFallback />
   {:else}
-    {#each $bookmarkGroups as { name,id, }}
-      <svelte:component this={BookmarkGroup} {name} />
+    {#each $bookmarkGroups as { name, id, bookmarks }}
+      <svelte:component
+        this={BookmarkGroup}
+        {name}
+        {id}
+        groupBookmarks={bookmarks}
+      />
     {/each}
   {/if}
 </Container>
