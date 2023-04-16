@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Bookmark from "../bookmarks/Bookmark.svelte";
+  import Bookmark from "../bookmarks/BookmarkCard.svelte";
   import { Button, Input, Label } from "flowbite-svelte";
   import ModalButton from "../misc/ModalButton.svelte";
   export let name: string;
