@@ -21,8 +21,9 @@
         class="flex flex-col space-y-6"
         action="#"
         on:submit|preventDefault={() => {
-          createBookmark(bookmarkName, bookmarkUrl, id).catch(() => {
+          createBookmark(bookmarkName, bookmarkUrl, id).catch((err) => {
             showError = true;
+            console.error(err)
           });
         }}
       >

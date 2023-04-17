@@ -19,27 +19,15 @@ export async function createBookmark(
   url: string,
   groupId: string
 ) {
-  const bookmarkRef = await addDoc(collection(db, "bookmarks"), {
+  const bookmarkDocRef = await addDoc(collection(db, "bookmarks"), {
     name,
     url,
-    groupId,
+    group: groupId,
   });
-  const bookmarkGroupRef = doc(db, "bookmarkGroups", groupId);
-  const bookmarkGroup = await getDoc(bookmarkGroupRef);
-  const bookmark = await getDoc(bookmarkRef);
-  await setDoc(bookmarkGroupRef, {
-    bookmarks: [...bookmarkGroup.data().bookmarks, bookmark.data()],
-  });
+  const docSnapshot = await getDoc(bookmarkDocRef);
+  const bookmark = docSnapshot.data() as Bookmark;
   bookmarks.update((bookmarks) => {
-    return [
-      ...bookmarks,
-      {
-        id: bookmarkRef.id,
-        name,
-        url,
-        group: bookmarkGroup.data(),
-      } as Bookmark,
-    ];
+    return [...bookmarks, { ...bookmark, id: bookmarkDocRef.id }];
   });
 }
 
