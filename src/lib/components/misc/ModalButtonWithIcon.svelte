@@ -6,6 +6,6 @@
 <Button {...$$restProps} on:click={() => (formModal = true)}>
   <slot name="icon" />
 </Button>
-<Modal bind:open={formModal} size="xs" autoclose class="w-full">
+<Modal bind:open={formModal} size="xs" {...$$restProps} class="w-full">
   <slot name="content" />
 </Modal>

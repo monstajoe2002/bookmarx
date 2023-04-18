@@ -65,8 +65,8 @@
     <BookmarkFallback />
   {:else}
     <div class="grid grid-cols-2 grid-rows-2 gap-4 my-8">
-      {#each $bookmarks as { name }}
-        <BookmarkCard {name} />
+      {#each $bookmarks as { name, id }}
+        <BookmarkCard {name} {id}/>
       {/each}
     </div>
   {/if}
