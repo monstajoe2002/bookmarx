@@ -7,7 +7,7 @@ declare interface Bookmark {
   id: string;
   name: string;
   url: string;
-  group: BookmarkGroup;
+  groupId: string;
 }
 
 declare interface BookmarkGroup {
@@ -15,4 +15,3 @@ declare interface BookmarkGroup {
   name: string;
   bookmarks: Bookmark[];
 }
-

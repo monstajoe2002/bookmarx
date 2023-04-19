@@ -48,7 +48,7 @@ export async function editBookmark(id: string, name: string, url: string) {
   bookmarks.update((bookmarks) => {
     return bookmarks.map((bookmark) => {
       if (bookmark.id === id) {
-        return { id, name, url, group: bookmark.group };
+        return { id, name, url, groupId: bookmark.groupId };
       }
       return bookmark;
     });
