@@ -78,7 +78,7 @@
     <BookmarkFallback />
   {:else}
     <div class="grid grid-cols-2 grid-rows-2 gap-4 my-8">
-      {#each $bookmarks as { name, id, url }}
+      {#each $bookmarks.filter(b => b.groupId === id) as { name, id, url }}
         <BookmarkCard {name} {id} {url} />
       {/each}
     </div>
