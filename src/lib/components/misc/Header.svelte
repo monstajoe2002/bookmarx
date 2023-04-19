@@ -7,19 +7,25 @@
     Button,
     Label,
     Input,
+    ButtonGroup,
   } from "flowbite-svelte";
   import ModalButton from "./ModalButton.svelte";
   import { createBookmarkGroup } from "../../../stores/bookmarkGroups";
   $: name = "";
+
   let autoclose: boolean;
 </script>
 
 <Navbar let:hidden let:toggle>
-  <NavHamburger on:click={toggle} />
+  <!-- <NavHamburger on:click={toggle} />
   <NavUl {hidden}>
     <NavLi href="/" active={true}>Log In</NavLi>
     <NavLi href="/">Sign Up</NavLi>
-  </NavUl>
+  </NavUl> -->
+  <ButtonGroup>
+    <Button color="blue">Sign Up</Button>
+    <Button outline color="blue">Log In</Button>
+  </ButtonGroup>
   <div class="flex md:order-2">
     <ModalButton text="New Bookmark Group">
       <form
