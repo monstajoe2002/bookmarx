@@ -28,3 +28,8 @@ chrome.tabs.onRemoved.addListener((tabId) => {
     return tabs.filter((tab) => tab.id !== tabId);
   });
 });
+
+
+export function switchToTab(tabId: number) {
+  chrome.tabs.update(tabId, { active: true });
+}
