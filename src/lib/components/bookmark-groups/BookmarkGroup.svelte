@@ -10,6 +10,7 @@
   $: bookmarkName = "";
   $: bookmarkUrl = "";
   $: showError = false;
+  $: showSuccess = false;
 </script>
 
 <div class="bg-blue-200 rounded-md p-6 max-w-screen mb-8">
@@ -21,9 +22,14 @@
         class="flex flex-col space-y-6"
         action="#"
         on:submit|preventDefault={() => {
-          createBookmark(bookmarkName, bookmarkUrl, id).catch(() => {
-            showError = true;
-          });
+          createBookmark(bookmarkName, bookmarkUrl, id)
+            .then(() => {
+              showSuccess = true;
+              showError = false;
+            })
+            .catch(() => {
+              showError = true;
+            });
         }}
       >
         <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
@@ -51,6 +57,14 @@
         </Label>
         <Button type="submit" class="w-full1">Create</Button>
       </form>
+      {#if showSuccess}
+        <Alert border color="green">
+          <span slot="icon">
+            <i class="bi bi-check-circle-fill" />
+          </span>
+          <span class="font-medium">Bookmark saved!</span>
+        </Alert>
+      {/if}
       {#if showError}
         <ErrorAlert>
           <svelte:fragment slot="message">
