@@ -10,7 +10,7 @@
   } from "flowbite-svelte";
   import ModalButton from "./ModalButton.svelte";
   import { createBookmarkGroup } from "../../../stores/bookmarkGroups";
-  let name: string;
+  $: name = "";
   let autoclose: boolean;
 </script>
 
