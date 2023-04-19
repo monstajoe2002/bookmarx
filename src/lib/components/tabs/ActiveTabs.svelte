@@ -15,7 +15,7 @@
   >
     {#each $activeTabs as { name, id } (id)}
       {#if name}
-        <Tab {name} />
+        <Tab {name} {id} />
       {/if}
     {/each}
   </div>
