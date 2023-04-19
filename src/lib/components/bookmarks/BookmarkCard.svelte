@@ -1,12 +1,13 @@
 <script lang="ts">
-  import { Card, Button, Label, Input } from "flowbite-svelte";
+  import { Card, Button, Label, Input, Alert } from "flowbite-svelte";
   import ModalButtonWithIcon from "../misc/ModalButtonWithIcon.svelte";
-  import { deleteBookmark } from "../../../stores/bookmarks";
+  import { deleteBookmark, editBookmark } from "../../../stores/bookmarks";
   import ErrorAlert from "../misc/ErrorAlert.svelte";
   export let name: string;
   export let id: string;
+  export let url: string;
   $: showError = false;
-  $:autoclose = true;
+  $: showSuccess = false;
 </script>
 
 <Card horizontal class="flex justify-between">
@@ -17,18 +18,38 @@
   </h4>
 
   <div>
-    <ModalButtonWithIcon color="alternative">
+    <ModalButtonWithIcon>
       <svelte:fragment slot="icon">
         <i class="bi bi-pencil-fill" />
       </svelte:fragment>
       <svelte:fragment slot="content">
-        <form class="flex flex-col space-y-6" action="#">
+        <form
+          class="flex flex-col space-y-6"
+          action="#"
+          on:submit|preventDefault={() => {
+            editBookmark(id, name, url)
+              .then(() => {
+                showSuccess = true;
+                showError = false;
+              })
+              .catch(() => {
+                showError = true;
+                showSuccess = false;
+              });
+          }}
+        >
           <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
             Edit Bookmark
           </h3>
           <Label class="space-y-2">
             <span>Name</span>
-            <Input type="text" name="name" placeholder="Example" required />
+            <Input
+              type="text"
+              name="name"
+              placeholder="Example"
+              required
+              bind:value={name}
+            />
           </Label>
           <Label class="space-y-2">
             <span>URL</span>
@@ -37,13 +58,22 @@
               name="link"
               placeholder="www.example.com"
               required
+              bind:value={url}
             />
           </Label>
-          <Button type="submit" class="w-full1">Edit</Button>
+          <Button type="submit" class="w-full1">Save Changes</Button>
         </form>
+        {#if showSuccess }
+        <Alert border color="green">
+          <span slot="icon">
+            <i class="bi bi-check-circle-fill"></i>
+          </span>
+          <span class="font-medium">Changes saved!</span>
+        </Alert>
+        {/if}
       </svelte:fragment>
     </ModalButtonWithIcon>
-    <ModalButtonWithIcon color="red" {autoclose}>
+    <ModalButtonWithIcon color="red">
       <svelte:fragment slot="icon">
         <i class="bi bi-trash-fill" />
       </svelte:fragment>
@@ -73,7 +103,6 @@
             on:click={() => {
               deleteBookmark(id).catch(() => {
                 showError = true;
-                autoclose = false;
               });
             }}
           >

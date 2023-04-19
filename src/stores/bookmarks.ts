@@ -1,5 +1,4 @@
 import {
-  addDoc,
   collection,
   deleteDoc,
   doc,
@@ -7,7 +6,7 @@ import {
   getDocs,
   setDoc,
 } from "firebase/firestore";
-import { get, writable } from "svelte/store";
+import { writable } from "svelte/store";
 import { db } from "../config/firebase";
 import { v4 as uuidV4 } from "uuid";
 const querySnapshot = await getDocs(collection(db, "bookmarks"));
@@ -36,7 +35,7 @@ export async function createBookmark(
 }
 
 export async function deleteBookmark(id: string) {
-  const bookmark = await getDoc(doc(db, "bookmarks",id));
+  const bookmark = await getDoc(doc(db, "bookmarks", id));
   await deleteDoc(bookmark.ref);
   bookmarks.update((bookmarks) => {
     return bookmarks.filter((bookmark) => bookmark.id !== id);
@@ -45,7 +44,7 @@ export async function deleteBookmark(id: string) {
 
 export async function editBookmark(id: string, name: string, url: string) {
   const bookmark = await getDoc(doc(db, "bookmarks", id));
-  await setDoc(bookmark.ref, { name, url });
+  await setDoc(bookmark.ref, { ...bookmark.data(), name, url });
   bookmarks.update((bookmarks) => {
     return bookmarks.map((bookmark) => {
       if (bookmark.id === id) {

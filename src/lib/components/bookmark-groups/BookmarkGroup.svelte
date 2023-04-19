@@ -15,15 +15,14 @@
 <div class="bg-blue-200 rounded-md p-6 max-w-screen mb-8">
   <div class="flex justify-between">
     <h1 class="text-4xl font-semibold dark:text-white">{name}</h1>
-    <!-- Custom component for the ne bookmark modal -->
+    <!-- Custom component for the new bookmark modal -->
     <ModalButton text="New Bookmark">
       <form
         class="flex flex-col space-y-6"
         action="#"
         on:submit|preventDefault={() => {
-          createBookmark(bookmarkName, bookmarkUrl, id).catch((err) => {
+          createBookmark(bookmarkName, bookmarkUrl, id).catch(() => {
             showError = true;
-            console.error(err)
           });
         }}
       >
@@ -65,8 +64,8 @@
     <BookmarkFallback />
   {:else}
     <div class="grid grid-cols-2 grid-rows-2 gap-4 my-8">
-      {#each $bookmarks as { name, id }}
-        <BookmarkCard {name} {id}/>
+      {#each $bookmarks as { name, id, url }}
+        <BookmarkCard {name} {id} {url} />
       {/each}
     </div>
   {/if}
