@@ -12,7 +12,7 @@
   $: showError = false;
 </script>
 
-<div class="bg-blue-200 rounded-md p-6 max-w-screen mb-8">
+<div class="bg-blue-200 rounded-md p-6 max-w-screen my-6">
   <div class="flex justify-between">
     <h1 class="text-4xl font-semibold dark:text-white">{name}</h1>
     <!-- Custom component for the new bookmark modal -->
