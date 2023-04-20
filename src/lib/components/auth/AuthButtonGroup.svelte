@@ -17,7 +17,6 @@
   $: showSuccess = false;
   $: email = "";
   $: password = "";
- 
 </script>
 
 <ButtonGroup>
@@ -37,9 +36,6 @@
     on:submit|preventDefault={() => {
       logIn(email, password)
         .then(() => {
-          if (!$authStore.emailVerified) {
-            sendEmailVerification(auth.currentUser);
-          }
           showSuccess = true;
         })
         .catch(() => {
@@ -57,11 +53,18 @@
         name="email"
         placeholder="name@example.com"
         required
+        bind:value={email}
       />
     </Label>
     <Label class="space-y-2">
       <span>Your password</span>
-      <Input type="password" name="password" placeholder="•••••" required />
+      <Input
+        type="password"
+        name="password"
+        placeholder="•••••"
+        required
+        bind:value={password}
+      />
     </Label>
 
     <Button type="submit" class="w-full1">Continue</Button>
@@ -76,7 +79,7 @@
     on:submit|preventDefault={() => {
       signUp(email, password)
         .then(() => {
-          if(!$authStore?.emailVerified) {
+          if (!$authStore?.emailVerified) {
             sendEmailVerification(auth.currentUser);
           }
           showSuccess = true;
@@ -119,7 +122,6 @@
         Something went wrong. Please try again.
       </svelte:fragment>
     </ErrorAlert>
-  
   {:else if showSuccess}
     <Alert color="green" dismissable>
       <span slot="icon">
