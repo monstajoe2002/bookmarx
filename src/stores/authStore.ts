@@ -2,7 +2,6 @@ import { writable } from "svelte/store";
 import { auth } from "../config/firebase";
 import {
   createUserWithEmailAndPassword,
-  onAuthStateChanged,
   type User,
   type UserInfo,
 } from "firebase/auth";
@@ -16,6 +15,7 @@ export const signUp = async (email: string, password: string) => {
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
+      
       // ...
     })
     .catch((error) => {
@@ -26,10 +26,4 @@ export const signUp = async (email: string, password: string) => {
     });
 };
 
-authStore.subscribe(() => {
-  onAuthStateChanged(auth, (user) => {
-    if (!user) return;
-    authStore.set(user);
-    const uid = user.uid;
-  });
-});
+
