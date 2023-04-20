@@ -10,7 +10,7 @@
   $: showSuccess = false;
 </script>
 
-<Card horizontal class="flex justify-between">
+<Card horizontal class="flex justify-between" href={url}>
   <h4
     class="my-auto text-xl font-bold tracking-tight text-gray-900 dark:text-white line-clamp-1"
   >
