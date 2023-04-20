@@ -5,7 +5,9 @@ import {
   deleteDoc,
   doc,
   getDocs,
+  query,
   setDoc,
+  where,
 } from "firebase/firestore";
 import { v4 as uuidV4 } from "uuid";
 const querySnapshot = await getDocs(collection(db, "bookmarkGroups"));
@@ -27,8 +29,15 @@ export const createBookmarkGroup = async (name: string) => {
 
 export const deleteBookmarkGroup = async (id: string) => {
   await deleteDoc(doc(db, "bookmarkGroups", id));
-  //TODO: delete bookmarks asocciated with group
+  const bookmarksQuerySnapshot = await getDocs(
+    query(collection(db, "bookmarks"), where("groupId", "==", id))
+  );
   
+  const bookmarkDocs = bookmarksQuerySnapshot.docs;
+  
+  bookmarkDocs.forEach(async (doc) => {
+    await deleteDoc(doc.ref);
+  });
   bookmarkGroups.update((groups) => {
     return groups.filter((group) => group.id !== id);
   });
