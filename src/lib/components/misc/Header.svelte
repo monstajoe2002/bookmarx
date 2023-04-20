@@ -3,17 +3,24 @@
   import ModalButton from "./ModalButton.svelte";
   import { createBookmarkGroup } from "../../../stores/bookmarkGroups";
   import AuthButtonGroup from "../auth/AuthButtonGroup.svelte";
-  import { authStore } from "../../../stores/authStore";
+  import { authStore, signOut } from "../../../stores/authStore";
 
   $: name = "";
-  $: console.log($authStore);
-
 </script>
 
 <Navbar let:hidden let:toggle>
-  {#if !$authStore}
+  {#if !$authStore && !$authStore?.emailVerified}
     <AuthButtonGroup />
   {:else}
+    <Button
+      color="red"
+      on:click={() => {
+        signOut();
+        window.location.reload();
+      }}
+    >
+      Sign Out
+    </Button>
     <P size="lg">{$authStore.email}</P>
   {/if}
   <div class="flex md:order-2">

@@ -1,7 +1,6 @@
 import { writable } from "svelte/store";
 import { auth } from "../config/firebase";
 import {
-  browserLocalPersistence,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   setPersistence,
@@ -31,7 +30,13 @@ export const signUp = async (email: string, password: string) => {
 
 export const logIn = async (email: string, password: string) => {
   signInWithEmailAndPassword(auth, email, password)
-   
+    .then((userCredential) => {
+      // Signed in
+      const user = userCredential.user;
+      return user;
+      // ...
+    })
+
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -39,7 +44,9 @@ export const logIn = async (email: string, password: string) => {
       // ..
     });
 };
-
+export const signOut = async () => {
+  auth.signOut();
+};
 
 onAuthStateChanged(auth, (user) => {
   authStore.set(user);

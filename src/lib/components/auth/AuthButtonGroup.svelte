@@ -13,7 +13,6 @@
   import { auth } from "../../../config/firebase";
   let toggleLoginModal = false;
   let toggleSignupModal = false;
-  $: showEmailVerificationAlert = false;
   $: showError = false;
   $: showSuccess = false;
   $: email = "";
@@ -77,8 +76,10 @@
     on:submit|preventDefault={() => {
       signUp(email, password)
         .then(() => {
-          showEmailVerificationAlert = true;
-          
+          if(!$authStore?.emailVerified) {
+            sendEmailVerification(auth.currentUser);
+          }
+          showSuccess = true;
         })
         .catch(() => {
           showError = true;
@@ -118,14 +119,7 @@
         Something went wrong. Please try again.
       </svelte:fragment>
     </ErrorAlert>
-  {:else if showEmailVerificationAlert}
-    <Alert color="blue" dismissable>
-      <span slot="icon">
-        <i class="bi bi-info-circle-fill" />
-      </span>
-      A verification link has been sent to your email address. Please check your
-      inbox.
-    </Alert>
+  
   {:else if showSuccess}
     <Alert color="green" dismissable>
       <span slot="icon">
