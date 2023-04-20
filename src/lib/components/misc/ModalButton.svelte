@@ -4,7 +4,7 @@
     export let text:string;
   </script>
   
-  <Button on:click={() => formModal = true}>{text}</Button>
+  <Button {...$$restProps} on:click={() => formModal = true}>{text}</Button>
   <Modal bind:open={formModal} size="xs" autoclose={false} class="w-full">
     <slot/>
   </Modal>
