@@ -9,8 +9,7 @@
   } from "flowbite-svelte";
   import { authStore, logIn, signUp } from "../../../stores/authStore";
   import ErrorAlert from "../misc/ErrorAlert.svelte";
-  import { onMount } from "svelte";
-  import { onAuthStateChanged, sendEmailVerification } from "firebase/auth";
+  import { sendEmailVerification } from "firebase/auth";
   import { auth } from "../../../config/firebase";
   let toggleLoginModal = false;
   let toggleSignupModal = false;
@@ -19,15 +18,7 @@
   $: showSuccess = false;
   $: email = "";
   $: password = "";
-  onMount(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (!user) return;
-      return user;
-    });
-    return () => {
-      unsubscribe();
-    };
-  });
+ 
 </script>
 
 <ButtonGroup>

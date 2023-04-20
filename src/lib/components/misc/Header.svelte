@@ -1,13 +1,21 @@
 <script lang="ts">
-  import { Navbar, Button, Label, Input } from "flowbite-svelte";
+  import { Navbar, Button, Label, Input, P } from "flowbite-svelte";
   import ModalButton from "./ModalButton.svelte";
   import { createBookmarkGroup } from "../../../stores/bookmarkGroups";
   import AuthButtonGroup from "../auth/AuthButtonGroup.svelte";
+  import { authStore } from "../../../stores/authStore";
+
   $: name = "";
+  $: console.log($authStore);
+
 </script>
 
 <Navbar let:hidden let:toggle>
-  <AuthButtonGroup/>
+  {#if !$authStore}
+    <AuthButtonGroup />
+  {:else}
+    <P size="lg">{$authStore.email}</P>
+  {/if}
   <div class="flex md:order-2">
     <ModalButton text="New Bookmark Group">
       <form
