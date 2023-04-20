@@ -7,21 +7,22 @@
     Label,
     Modal,
   } from "flowbite-svelte";
-  import { authStore, signUp } from "../../../stores/authStore";
+  import { authStore, logIn, signUp } from "../../../stores/authStore";
   import ErrorAlert from "../misc/ErrorAlert.svelte";
   import { onMount } from "svelte";
   import { onAuthStateChanged, sendEmailVerification } from "firebase/auth";
   import { auth } from "../../../config/firebase";
   let toggleLoginModal = false;
   let toggleSignupModal = false;
+  $: showEmailVerificationAlert = false;
   $: showError = false;
+  $: showSuccess = false;
   $: email = "";
   $: password = "";
-  let showEmailVerificationAlert = false;
   onMount(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (!user) return;
-      authStore.set(user);
+      return user;
     });
     return () => {
       unsubscribe();
@@ -40,7 +41,22 @@
 
 <!-- Login Modal -->
 <Modal bind:open={toggleLoginModal} size="xs" autoclose={false} class="w-full">
-  <form class="flex flex-col space-y-6" action="#">
+  <form
+    class="flex flex-col space-y-6"
+    action="#"
+    on:submit|preventDefault={() => {
+      logIn(email, password)
+        .then(() => {
+          if (!$authStore.emailVerified) {
+            sendEmailVerification(auth.currentUser);
+          }
+          showSuccess = true;
+        })
+        .catch(() => {
+          showError = true;
+        });
+    }}
+  >
     <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
       Sign in to Bookmarx
     </h3>
@@ -71,9 +87,7 @@
       signUp(email, password)
         .then(() => {
           showEmailVerificationAlert = true;
-          if(!$authStore.emailVerified) {
-            sendEmailVerification(auth.currentUser)
-          }
+          
         })
         .catch(() => {
           showError = true;
@@ -107,7 +121,13 @@
 
     <Button type="submit" class="w-full1">Continue</Button>
   </form>
-  {#if showEmailVerificationAlert}
+  {#if showError}
+    <ErrorAlert>
+      <svelte:fragment slot="message">
+        Something went wrong. Please try again.
+      </svelte:fragment>
+    </ErrorAlert>
+  {:else if showEmailVerificationAlert}
     <Alert color="blue" dismissable>
       <span slot="icon">
         <i class="bi bi-info-circle-fill" />
@@ -115,7 +135,12 @@
       A verification link has been sent to your email address. Please check your
       inbox.
     </Alert>
+  {:else if showSuccess}
+    <Alert color="green" dismissable>
+      <span slot="icon">
+        <i class="bi bi-check-circle-fill" />
+      </span>
+      Your account has been created. Please check your inbox for a verification link.
+    </Alert>
   {/if}
 </Modal>
-
-
