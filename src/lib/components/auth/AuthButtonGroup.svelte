@@ -1,20 +1,27 @@
 <script lang="ts">
-  import { Button, ButtonGroup, Input, Label, Modal } from "flowbite-svelte";
+  import {
+    Alert,
+    Button,
+    ButtonGroup,
+    Input,
+    Label,
+    Modal,
+  } from "flowbite-svelte";
   import { authStore, signUp } from "../../../stores/authStore";
   import ErrorAlert from "../misc/ErrorAlert.svelte";
-  import { onDestroy, onMount } from "svelte";
-  import { onAuthStateChanged } from "firebase/auth";
+  import { onMount } from "svelte";
+  import { onAuthStateChanged, sendEmailVerification } from "firebase/auth";
   import { auth } from "../../../config/firebase";
   let toggleLoginModal = false;
   let toggleSignupModal = false;
   $: showError = false;
   $: email = "";
   $: password = "";
+  let showEmailVerificationAlert = false;
   onMount(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (!user) return;
       authStore.set(user);
-      console.log($authStore);
     });
     return () => {
       unsubscribe();
@@ -61,9 +68,16 @@
     class="flex flex-col space-y-6"
     action="#"
     on:submit|preventDefault={() => {
-      signUp(email, password).catch(() => {
-        showError = true;
-      });
+      signUp(email, password)
+        .then(() => {
+          showEmailVerificationAlert = true;
+          if(!$authStore.emailVerified) {
+            sendEmailVerification(auth.currentUser)
+          }
+        })
+        .catch(() => {
+          showError = true;
+        });
     }}
   >
     <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
@@ -92,16 +106,16 @@
     </Label>
 
     <Button type="submit" class="w-full1">Continue</Button>
-    {#if showError}
-      <ErrorAlert>
-        <svelte:fragment slot="message">
-          There was an error signing up. Please try again.
-        </svelte:fragment>
-      </ErrorAlert>
-    {/if}
   </form>
+  {#if showEmailVerificationAlert}
+    <Alert color="blue" dismissable>
+      <span slot="icon">
+        <i class="bi bi-info-circle-fill" />
+      </span>
+      A verification link has been sent to your email address. Please check your
+      inbox.
+    </Alert>
+  {/if}
 </Modal>
 
-{#if $authStore }
-  {$authStore.email}
-{/if}
+

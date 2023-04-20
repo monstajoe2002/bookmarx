@@ -15,7 +15,6 @@ export const signUp = async (email: string, password: string) => {
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
-      
       // ...
     })
     .catch((error) => {
