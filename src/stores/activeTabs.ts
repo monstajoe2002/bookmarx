@@ -2,14 +2,14 @@ import { writable } from "svelte/store";
 
 chrome.tabs.query({ currentWindow: true, highlighted: false }, (tabs) => {
   tabs = tabs.filter(({ url }) => url !== "chrome://newtab/");
-  activeTabs.set(tabs.map((tab) => ({ id: tab.id, name: tab.title } as Tab)));
+  activeTabs.set(tabs.map((tab) => ({ id: tab.id, name: tab.title,url:tab.url } as Tab)));
 });
 
 export const activeTabs = writable<Tab[]>([]);
 
 chrome.tabs.onCreated.addListener((tab) => {
   activeTabs.update((tabs) => {
-    return [...tabs, { id: tab.id, name: tab.title } as Tab];
+    return [...tabs, { id: tab.id, name: tab.title,url:tab.url } as Tab];
   });
 });
 

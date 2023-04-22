@@ -1,6 +1,7 @@
 declare interface Tab extends chrome.tabs.Tab {
   id: number;
   name: string;
+  url: string;
 }
 
 declare interface Bookmark {

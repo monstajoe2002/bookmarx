@@ -8,14 +8,14 @@
     Input,
     Select,
   } from "flowbite-svelte";
-  import { switchToTab } from "../../../stores/activeTabs";
+  import { activeTabs, switchToTab } from "../../../stores/activeTabs";
   import ModalButtonWithIcon from "../misc/ModalButtonWithIcon.svelte";
   import { createBookmark } from "../../../stores/bookmarks";
   import { bookmarkGroups } from "../../../stores/bookmarkGroups";
   export let name: string;
   export let id: number;
   export let url: string;
-  let selected: string = "";
+  let selected: string;
   let groupNames = $bookmarkGroups.map(({ name }) => {
     return name;
   });
@@ -23,6 +23,7 @@
     value: name,
     name,
   }));
+  $: groupId = $bookmarkGroups.find((group) => group.name === selected)?.id;
 </script>
 
 <Card horizontal class="flex justify-between w-72">
@@ -50,7 +51,7 @@
         class="flex flex-col space-y-6"
         action="#"
         on:submit|preventDefault={() => {
-          console.log(selected);
+          createBookmark(name, url, groupId)
         }}
       >
         <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
@@ -64,6 +65,7 @@
             placeholder="Example"
             required
             bind:value={name}
+            
           />
         </Label>
         <Label>
@@ -72,6 +74,7 @@
             class="mt-2"
             items={groups}
             bind:value={selected}
+            required
           />
         </Label>
         <Button type="submit" color="green" class="w-full">Add</Button>
