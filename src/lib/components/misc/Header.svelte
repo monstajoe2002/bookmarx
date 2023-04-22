@@ -10,7 +10,7 @@
 
 <Navbar let:hidden let:toggle>
   {#if !$authStore && !$authStore?.emailVerified}
-    <AuthButtonGroup color="blue" />
+    <AuthButtonGroup/>
   {:else}
     <Button
       color="red"
