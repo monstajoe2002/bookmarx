@@ -31,7 +31,7 @@
         on:submit|preventDefault={() => createBookmarkGroup(name)}
       >
         <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
-          Create New Bookmark
+          Create New Bookmark Group
         </h3>
         <Label class="space-y-2">
           <span>Name</span>
