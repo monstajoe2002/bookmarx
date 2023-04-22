@@ -12,7 +12,7 @@
 
 <Card horizontal class="flex justify-between" >
   <A
-    class="my-auto text-xl font-semibold tracking-tight text-gray-900 dark:text-white line-clamp-1"
+    class="my-auto text-xl font-semibold tracking-tight text-blue-700 dark:text-white line-clamp-1 "
     href={url}
   >
     {name}
