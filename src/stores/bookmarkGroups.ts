@@ -32,13 +32,29 @@ export const deleteBookmarkGroup = async (id: string) => {
   const bookmarksQuerySnapshot = await getDocs(
     query(collection(db, "bookmarks"), where("groupId", "==", id))
   );
-  
+
   const bookmarkDocs = bookmarksQuerySnapshot.docs;
-  
+
   bookmarkDocs.forEach(async (doc) => {
     await deleteDoc(doc.ref);
   });
   bookmarkGroups.update((groups) => {
     return groups.filter((group) => group.id !== id);
+  });
+};
+
+export const updateBookmarkGroup = async (id: string, name: string) => {
+  await setDoc(doc(db, "bookmarkGroups", id), {
+    id,
+    name,
+    bookmarks: doc(collection(db, "bookmarks")),
+  });
+  bookmarkGroups.update((groups) => {
+    return groups.map((group) => {
+      if (group.id === id) {
+        group.name = name;
+      }
+      return group;
+    });
   });
 };

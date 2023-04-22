@@ -6,7 +6,10 @@
   import BookmarkFallback from "../bookmarks/BookmarkFallback.svelte";
   import ErrorAlert from "../misc/ErrorAlert.svelte";
   import ModalButtonWithIcon from "../misc/ModalButtonWithIcon.svelte";
-  import { deleteBookmarkGroup } from "../../../stores/bookmarkGroups";
+  import {
+    deleteBookmarkGroup,
+    updateBookmarkGroup,
+  } from "../../../stores/bookmarkGroups";
   export let name: string;
   export let id: string;
   $: bookmarkName = "";
@@ -17,7 +20,56 @@
 
 <div class="bg-blue-200 rounded-md p-6 max-w-screen my-6">
   <div class="flex justify-between">
-    <h1 class="text-4xl font-semibold dark:text-white">{name}</h1>
+    <div class="flex gap-4">
+      <h1 class="text-4xl font-semibold dark:text-white">{name}</h1>
+      <ModalButtonWithIcon>
+        <svelte:fragment slot="icon">
+          <i class="bi bi-pencil-fill" />
+        </svelte:fragment>
+        <svelte:fragment slot="content">
+          <form
+            class="flex flex-col space-y-6"
+            action="#"
+            on:submit|preventDefault={() => updateBookmarkGroup(id, name).then(() => {
+              showSuccess = true;
+              showError = false;
+            }).catch(() => {
+              showError = true;
+            })}
+          >
+            <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
+              Edit Group Name
+            </h3>
+            <Label class="space-y-2">
+              <span>Name</span>
+              <Input
+                type="text"
+                name="name"
+                placeholder="Example"
+                required
+                bind:value={name}
+              />
+            </Label>
+            <Button type="submit" class="w-full1">Save Changes</Button>
+          </form>
+          {#if showSuccess}
+            <Alert border color="green">
+              <span slot="icon">
+                <i class="bi bi-check-circle-fill" />
+              </span>
+              <span class="font-medium">Bookmark name updated!</span>
+            </Alert>
+          {/if}
+          {#if showError}
+            <ErrorAlert>
+              <svelte:fragment slot="message">
+                An error occured while saving changes.
+              </svelte:fragment>
+            </ErrorAlert>
+          {/if}
+        </svelte:fragment>
+      </ModalButtonWithIcon>
+    </div>
     <div class="flex gap-4">
       <!-- Custom component for the new bookmark modal -->
       <ModalButton text="New Bookmark">
@@ -102,13 +154,17 @@
             <h3
               class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400"
             >
-              Are you sure you want to delete this group? 
+              Are you sure you want to delete this group?
             </h3>
-            <Button color="red" class="mr-2"
-            on:click={() => {
-              deleteBookmarkGroup(id);
-            }}
-            >Yes, I'm sure</Button>
+            <Button
+              color="red"
+              class="mr-2"
+              on:click={() => {
+                deleteBookmarkGroup(id);
+              }}
+            >
+              Yes, I'm sure
+            </Button>
             <Button color="alternative">No, cancel</Button>
           </div>
         </svelte:fragment>
