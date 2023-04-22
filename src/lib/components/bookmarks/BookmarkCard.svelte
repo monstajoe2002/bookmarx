@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Card, Button, Label, Input, Alert, A } from "flowbite-svelte";
+  import { Card, Button, Label, Input, Alert, A, P } from "flowbite-svelte";
   import ModalButtonWithIcon from "../misc/ModalButtonWithIcon.svelte";
   import { deleteBookmark, editBookmark } from "../../../stores/bookmarks";
   import ErrorAlert from "../misc/ErrorAlert.svelte";
@@ -10,15 +10,15 @@
   $: showSuccess = false;
 </script>
 
-<Card horizontal class="flex justify-between" >
-  <A
-    class="my-auto text-xl font-semibold tracking-tight text-blue-700 dark:text-white line-clamp-1 "
+<Card horizontal class="flex justify-between " >
+  <P
+    class="my-auto text-xl font-semibold tracking-tight text-blue-700 dark:text-white line-clamp-1"
     href={url}
   >
     {name}
-  </A>
+  </P>
 
-  <div>
+  <div class="flex gap-2">
     <ModalButtonWithIcon>
       <svelte:fragment slot="icon">
         <i class="bi bi-pencil-fill" />
