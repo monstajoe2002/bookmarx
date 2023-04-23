@@ -7,6 +7,7 @@
   import { authStore } from "./stores/authStore";
   import { bookmarkGroups } from "./stores/bookmarkGroups";
   import AuthButtonGroup from "./lib/components/auth/AuthButtonGroup.svelte";
+  import { auth } from "./config/firebase";
 </script>
 
 <Container>
@@ -14,7 +15,7 @@
   {#if !$authStore}
     <Alert color="red">
       <span slot="icon">
-        <i class="bi bi-exclamation-circle-fill"></i>
+        <i class="bi bi-exclamation-circle-fill" />
       </span>
       <span class="text-lg font-medium">No user account</span>
       <div slot="extra">
@@ -24,10 +25,10 @@
         </div>
       </div>
     </Alert>
-  {:else if !$bookmarkGroups.length}
+  {:else if !$bookmarkGroups.length || !$bookmarkGroups.filter((b) => b.userId === auth.currentUser.uid).length}
     <BookmarkGroupFallback />
   {:else}
-    {#each $bookmarkGroups as { name, id }}
+    {#each $bookmarkGroups.filter((b) => b.userId === auth.currentUser.uid) as { name, id }}
       <svelte:component this={BookmarkGroup} {name} {id} />
     {/each}
   {/if}

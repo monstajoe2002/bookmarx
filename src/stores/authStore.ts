@@ -3,6 +3,7 @@ import { auth } from "../config/firebase";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  sendEmailVerification,
   signInWithEmailAndPassword,
   type User,
   type UserInfo,
@@ -17,6 +18,9 @@ export const signUp = async (email: string, password: string) => {
     .then(() => {
       // Signed in
       logIn(email, password);
+      if (!auth.currentUser.emailVerified) {
+        sendEmailVerification(auth.currentUser);
+      }
       // ...
     })
     .catch((error) => {

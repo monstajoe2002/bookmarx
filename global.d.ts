@@ -9,10 +9,12 @@ declare interface Bookmark {
   name: string;
   url: string;
   groupId: string;
+  userId: string;
 }
 
 declare interface BookmarkGroup {
   id: string;
   name: string;
   bookmarks: Bookmark[];
+  userId: string;
 }
