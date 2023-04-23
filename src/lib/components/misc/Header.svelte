@@ -10,15 +10,14 @@
 
 <Navbar let:hidden let:toggle>
   {#if !$authStore && !$authStore?.emailVerified}
-    <AuthButtonGroup/>
+    <AuthButtonGroup />
   {:else}
     <Button
       color="red"
-      on:click={() => {
+      on:click="{() => {
         signOut();
         window.location.reload();
-      }}
-    >
+      }}">
       Sign Out
     </Button>
     <P size="lg">{$authStore.email}</P>
@@ -28,8 +27,7 @@
       <form
         class="flex flex-col space-y-6"
         action="#"
-        on:submit|preventDefault={() => createBookmarkGroup(name)}
-      >
+        on:submit|preventDefault="{() => createBookmarkGroup(name)}">
         <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
           Create New Bookmark Group
         </h3>
@@ -40,8 +38,7 @@
             name="name"
             placeholder="Example"
             required
-            bind:value={name}
-          />
+            bind:value="{name}" />
         </Label>
         <Button type="submit" class="w-full1">Create</Button>
       </form>

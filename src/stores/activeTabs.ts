@@ -3,7 +3,7 @@ import { writable } from "svelte/store";
 chrome.tabs.query({ currentWindow: true, highlighted: false }, (tabs) => {
   tabs = tabs.filter(({ url }) => url !== "chrome://newtab/");
   activeTabs.set(
-    tabs.map((tab) => ({ id: tab.id, name: tab.title, url: tab.url } as Tab))
+    tabs.map((tab) => ({ id: tab.id, name: tab.title, url: tab.url } as Tab)),
   );
 });
 

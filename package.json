@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
-    "lint": "eslint --fix --ext .js,.ts,.svelte src"
+    "lint": "eslint --fix --ext .js,.ts,.svelte src",
+    "format": "prettier --write \"src/**/*.{js,ts,svelte,html}\""
   },
   "devDependencies": {
     "@crxjs/vite-plugin": "^2.0.0-beta.12",
@@ -26,6 +27,8 @@
     "eslint-plugin-unused-imports": "^2.0.0",
     "postcss": "^8.4.14",
     "postcss-load-config": "^4.0.1",
+    "prettier": "2.8.8",
+    "prettier-plugin-svelte": "^2.10.0",
     "svelte": "^3.55.1",
     "svelte-check": "^2.10.3",
     "svelte-preprocess": "^4.10.7",

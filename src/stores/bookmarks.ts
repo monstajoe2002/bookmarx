@@ -18,7 +18,7 @@ export const bookmarks = writable<Bookmark[]>(data);
 export async function createBookmark(
   name: string,
   url: string,
-  groupId: string
+  groupId: string,
 ) {
   const bookmarkId = uuidV4();
   await setDoc(doc(db, "bookmarks", bookmarkId), {

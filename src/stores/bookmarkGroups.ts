@@ -33,7 +33,7 @@ export const createBookmarkGroup = async (name: string) => {
 export const deleteBookmarkGroup = async (id: string) => {
   await deleteDoc(doc(db, "bookmarkGroups", id));
   const bookmarksQuerySnapshot = await getDocs(
-    query(collection(db, "bookmarks"), where("groupId", "==", id))
+    query(collection(db, "bookmarks"), where("groupId", "==", id)),
   );
 
   const bookmarkDocs = bookmarksQuerySnapshot.docs;

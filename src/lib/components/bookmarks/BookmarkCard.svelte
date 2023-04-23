@@ -1,5 +1,13 @@
 <script lang="ts">
-  import { Card, Button, Label, Input, Alert, A, Tooltip } from "flowbite-svelte";
+  import {
+    Card,
+    Button,
+    Label,
+    Input,
+    Alert,
+    A,
+    Tooltip,
+  } from "flowbite-svelte";
   import ModalButtonWithIcon from "../misc/ModalButtonWithIcon.svelte";
   import { deleteBookmark, editBookmark } from "../../../stores/bookmarks";
   import ErrorAlert from "../misc/ErrorAlert.svelte";
@@ -10,11 +18,10 @@
   $: showSuccess = false;
 </script>
 
-<Card horizontal class="flex justify-between " >
+<Card horizontal class="flex justify-between ">
   <A
     class="my-auto text-xl font-semibold tracking-tight text-blue-700 dark:text-white line-clamp-1 whitespace-nowrap"
-    href={url}
-  >
+    href="{url}">
     {name}
   </A>
   <Tooltip>
@@ -23,13 +30,13 @@
   <div class="flex gap-2">
     <ModalButtonWithIcon>
       <svelte:fragment slot="icon">
-        <i class="bi bi-pencil-fill" />
+        <i class="bi bi-pencil-fill"></i>
       </svelte:fragment>
       <svelte:fragment slot="content">
         <form
           class="flex flex-col space-y-6"
           action="#"
-          on:submit|preventDefault={() => {
+          on:submit|preventDefault="{() => {
             editBookmark(id, name, url)
               .then(() => {
                 showSuccess = true;
@@ -39,8 +46,7 @@
                 showError = true;
                 showSuccess = false;
               });
-          }}
-        >
+          }}">
           <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
             Edit Bookmark
           </h3>
@@ -51,8 +57,7 @@
               name="name"
               placeholder="Example"
               required
-              bind:value={name}
-            />
+              bind:value="{name}" />
           </Label>
           <Label class="space-y-2">
             <span>URL</span>
@@ -61,24 +66,23 @@
               name="link"
               placeholder="www.example.com"
               required
-              bind:value={url}
-            />
+              bind:value="{url}" />
           </Label>
           <Button type="submit" class="w-full1">Save Changes</Button>
         </form>
-        {#if showSuccess }
-        <Alert border color="green">
-          <span slot="icon">
-            <i class="bi bi-check-circle-fill"></i>
-          </span>
-          <span class="font-medium">Changes saved!</span>
-        </Alert>
+        {#if showSuccess}
+          <Alert border color="green">
+            <span slot="icon">
+              <i class="bi bi-check-circle-fill"></i>
+            </span>
+            <span class="font-medium">Changes saved!</span>
+          </Alert>
         {/if}
       </svelte:fragment>
     </ModalButtonWithIcon>
     <ModalButtonWithIcon color="red">
       <svelte:fragment slot="icon">
-        <i class="bi bi-trash-fill" />
+        <i class="bi bi-trash-fill"></i>
       </svelte:fragment>
       <svelte:fragment slot="content">
         <div class="text-center">
@@ -88,14 +92,12 @@
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+            xmlns="http://www.w3.org/2000/svg">
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
               stroke-width="2"
-              d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
+              d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
           <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
             Are you sure you want to delete this bookmark?
@@ -103,12 +105,11 @@
           <Button
             color="red"
             class="mr-2"
-            on:click={() => {
+            on:click="{() => {
               deleteBookmark(id).catch(() => {
                 showError = true;
               });
-            }}
-          >
+            }}">
             Yes, I'm sure
           </Button>
           <Button color="alternative">No, cancel</Button>

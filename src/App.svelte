@@ -14,7 +14,7 @@
   {#if !$authStore}
     <Alert color="red">
       <span slot="icon">
-        <i class="bi bi-exclamation-circle-fill" />
+        <i class="bi bi-exclamation-circle-fill"></i>
       </span>
       <span class="text-lg font-medium">No user account</span>
       <div slot="extra">
@@ -28,7 +28,7 @@
     <BookmarkGroupFallback />
   {:else}
     {#each $bookmarkGroups.filter((b) => b.userId === auth.currentUser.uid) as { name, id }}
-      <svelte:component this={BookmarkGroup} {name} {id} />
+      <svelte:component this="{BookmarkGroup}" name="{name}" id="{id}" />
     {/each}
   {/if}
 </Container>

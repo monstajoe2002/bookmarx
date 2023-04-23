@@ -4,7 +4,7 @@
 
 <Alert color="red" dismissable>
   <span slot="icon">
-    <i class="bi bi-exclamation-circle-fill" />
+    <i class="bi bi-exclamation-circle-fill"></i>
   </span>
   <slot name="message" />
 </Alert>

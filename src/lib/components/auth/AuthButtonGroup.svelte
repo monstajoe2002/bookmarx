@@ -18,20 +18,24 @@
 </script>
 
 <ButtonGroup>
-  <Button color="blue" on:click={() => (toggleLoginModal = true)}>
+  <Button color="blue" on:click="{() => (toggleLoginModal = true)}">
     Log In
   </Button>
-  <Button outline color="blue" on:click={() => (toggleSignupModal = true)}>
+  <Button outline color="blue" on:click="{() => (toggleSignupModal = true)}">
     Sign Up
   </Button>
 </ButtonGroup>
 
 <!-- Login Modal -->
-<Modal bind:open={toggleLoginModal} size="xs" autoclose={false} class="w-full">
+<Modal
+  bind:open="{toggleLoginModal}"
+  size="xs"
+  autoclose="{false}"
+  class="w-full">
   <form
     class="flex flex-col space-y-6"
     action="#"
-    on:submit|preventDefault={() => {
+    on:submit|preventDefault="{() => {
       logIn(email, password)
         .then(() => {
           showSuccess = true;
@@ -39,8 +43,7 @@
         .catch(() => {
           showError = true;
         });
-    }}
-  >
+    }}">
     <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
       Sign in to Bookmarx
     </h3>
@@ -51,8 +54,7 @@
         name="email"
         placeholder="name@example.com"
         required
-        bind:value={email}
-      />
+        bind:value="{email}" />
     </Label>
     <Label class="space-y-2">
       <span>Your password</span>
@@ -61,8 +63,7 @@
         name="password"
         placeholder="•••••"
         required
-        bind:value={password}
-      />
+        bind:value="{password}" />
     </Label>
 
     <Button type="submit" class="w-full1">Continue</Button>
@@ -70,21 +71,23 @@
 </Modal>
 
 <!-- Signup modal -->
-<Modal bind:open={toggleSignupModal} size="xs" autoclose={false} class="w-full">
+<Modal
+  bind:open="{toggleSignupModal}"
+  size="xs"
+  autoclose="{false}"
+  class="w-full">
   <form
     class="flex flex-col space-y-6"
     action="#"
-    on:submit|preventDefault={() => {
+    on:submit|preventDefault="{() => {
       signUp(email, password)
         .then(() => {
-          
           showSuccess = true;
         })
         .catch(() => {
           showError = true;
         });
-    }}
-  >
+    }}">
     <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
       Create a new Bookmarx account
     </h3>
@@ -95,8 +98,7 @@
         name="email"
         placeholder="name@example.com"
         required
-        bind:value={email}
-      />
+        bind:value="{email}" />
     </Label>
     <Label class="space-y-2">
       <span>Your password</span>
@@ -106,8 +108,7 @@
         name="password"
         placeholder="•••••"
         required
-        bind:value={password}
-      />
+        bind:value="{password}" />
     </Label>
 
     <Button type="submit" class="w-full1">Continue</Button>
@@ -121,7 +122,7 @@
   {:else if showSuccess}
     <Alert color="green" dismissable>
       <span slot="icon">
-        <i class="bi bi-check-circle-fill" />
+        <i class="bi bi-check-circle-fill"></i>
       </span>
       Your account has been created. Please check your inbox for a verification link.
     </Alert>
