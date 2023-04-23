@@ -4,8 +4,12 @@
   import { createBookmarkGroup } from "../../../stores/bookmarkGroups";
   import AuthButtonGroup from "../auth/AuthButtonGroup.svelte";
   import { authStore, signOut } from "../../../stores/authStore";
+  import SuccessAlert from "./SuccessAlert.svelte";
+  import ErrorAlert from "./ErrorAlert.svelte";
 
   $: name = "";
+  $: showSuccess = false;
+  $: showError = false;
 </script>
 
 <Navbar let:hidden let:toggle>
@@ -27,7 +31,14 @@
       <form
         class="flex flex-col space-y-6"
         action="#"
-        on:submit|preventDefault="{() => createBookmarkGroup(name)}">
+        on:submit|preventDefault="{() =>
+          createBookmarkGroup(name)
+            .then(() => {
+              showSuccess = true;
+            })
+            .catch(() => {
+              showError = true;
+            })}">
         <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
           Create New Bookmark Group
         </h3>
@@ -41,6 +52,15 @@
             bind:value="{name}" />
         </Label>
         <Button type="submit" class="w-full1">Create</Button>
+        {#if showSuccess}
+          <SuccessAlert message="Bookmark Group Created Successfully" />
+        {:else if showError}
+          <ErrorAlert>
+            <svelte:fragment slot="message">
+              Something went wrong. Please try again.
+            </svelte:fragment>
+          </ErrorAlert>
+        {/if}
       </form>
     </ModalButton>
   </div>

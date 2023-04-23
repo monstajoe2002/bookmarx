@@ -11,6 +11,7 @@
     updateBookmarkGroup,
   } from "../../../stores/bookmarkGroups";
   import { auth } from "../../../config/firebase";
+  import SuccessAlert from "../misc/SuccessAlert.svelte";
   export let name: string;
   export let id: string;
   $: bookmarkName = "";
@@ -55,12 +56,7 @@
             <Button type="submit" class="w-full1">Save Changes</Button>
           </form>
           {#if showSuccess}
-            <Alert border color="green">
-              <span slot="icon">
-                <i class="bi bi-check-circle-fill"></i>
-              </span>
-              <span class="font-medium">Bookmark name updated!</span>
-            </Alert>
+            <SuccessAlert message="Bookmark name updated!" />
           {/if}
           {#if showError}
             <ErrorAlert>
@@ -112,12 +108,7 @@
           <Button type="submit" class="w-full1">Create</Button>
         </form>
         {#if showSuccess}
-          <Alert border color="green">
-            <span slot="icon">
-              <i class="bi bi-check-circle-fill"></i>
-            </span>
-            <span class="font-medium">Bookmark saved!</span>
-          </Alert>
+          <SuccessAlert message="Bookmark created!" />
         {/if}
         {#if showError}
           <ErrorAlert>

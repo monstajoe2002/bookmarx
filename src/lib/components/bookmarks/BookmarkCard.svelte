@@ -11,6 +11,7 @@
   import ModalButtonWithIcon from "../misc/ModalButtonWithIcon.svelte";
   import { deleteBookmark, editBookmark } from "../../../stores/bookmarks";
   import ErrorAlert from "../misc/ErrorAlert.svelte";
+  import SuccessAlert from "../misc/SuccessAlert.svelte";
   export let name: string;
   export let id: string;
   export let url: string;
@@ -71,12 +72,7 @@
           <Button type="submit" class="w-full1">Save Changes</Button>
         </form>
         {#if showSuccess}
-          <Alert border color="green">
-            <span slot="icon">
-              <i class="bi bi-check-circle-fill"></i>
-            </span>
-            <span class="font-medium">Changes saved!</span>
-          </Alert>
+          <SuccessAlert message="Changes saved!" />
         {/if}
       </svelte:fragment>
     </ModalButtonWithIcon>

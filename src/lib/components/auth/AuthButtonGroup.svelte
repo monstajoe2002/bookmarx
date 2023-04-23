@@ -9,6 +9,7 @@
   } from "flowbite-svelte";
   import { logIn, signUp } from "../../../stores/authStore";
   import ErrorAlert from "../misc/ErrorAlert.svelte";
+  import SuccessAlert from "../misc/SuccessAlert.svelte";
   let toggleLoginModal = false;
   let toggleSignupModal = false;
   $: showError = false;
@@ -120,11 +121,7 @@
       </svelte:fragment>
     </ErrorAlert>
   {:else if showSuccess}
-    <Alert color="green" dismissable>
-      <span slot="icon">
-        <i class="bi bi-check-circle-fill"></i>
-      </span>
-      Your account has been created. Please check your inbox for a verification link.
-    </Alert>
+    <SuccessAlert
+      message="Your account has been created. Please check your inbox for a verification link." />
   {/if}
 </Modal>
