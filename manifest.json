@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "Hello Extensions",
-  "description": "Base Level Extension",
+  "name": "Bookmarx",
+  "description": "A simple open-source bookmark manager for Chrome/Chromium.",
   "version": "1.0",
   "action": {
     "default_popup": "index.html"
@@ -9,8 +9,5 @@
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
-  "permissions":[
-    "tabs",
-    "activeTab"
-  ]
+  "permissions": ["tabs", "activeTab"]
 }
