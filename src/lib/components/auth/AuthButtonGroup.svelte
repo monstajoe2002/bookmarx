@@ -79,9 +79,7 @@
     on:submit|preventDefault={() => {
       signUp(email, password)
         .then(() => {
-          if (!$authStore?.emailVerified) {
-            sendEmailVerification(auth.currentUser);
-          }
+          
           showSuccess = true;
         })
         .catch(() => {

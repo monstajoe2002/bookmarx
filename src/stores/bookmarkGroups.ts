@@ -1,5 +1,5 @@
 import { writable } from "svelte/store";
-import { db } from "../config/firebase";
+import { auth, db } from "../config/firebase";
 import {
   collection,
   deleteDoc,
@@ -10,6 +10,7 @@ import {
   where,
 } from "firebase/firestore";
 import { v4 as uuidV4 } from "uuid";
+import { authStore } from "./authStore";
 const querySnapshot = await getDocs(collection(db, "bookmarkGroups"));
 const data = querySnapshot.docs.map((doc) => doc.data() as BookmarkGroup);
 
@@ -21,6 +22,7 @@ export const createBookmarkGroup = async (name: string) => {
     id: bookmarkGroupRef.id,
     name,
     bookmarks: doc(collection(db, "bookmarks")),
+    userId: auth.currentUser.uid,
   });
   bookmarkGroups.update((groups) => {
     return [...groups, { name } as BookmarkGroup];
@@ -48,6 +50,7 @@ export const updateBookmarkGroup = async (id: string, name: string) => {
     id,
     name,
     bookmarks: doc(collection(db, "bookmarks")),
+    userId: auth.currentUser.uid,
   });
   bookmarkGroups.update((groups) => {
     return groups.map((group) => {

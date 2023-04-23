@@ -7,7 +7,7 @@ import {
   setDoc,
 } from "firebase/firestore";
 import { writable } from "svelte/store";
-import { db } from "../config/firebase";
+import { auth, db } from "../config/firebase";
 import { v4 as uuidV4 } from "uuid";
 const querySnapshot = await getDocs(collection(db, "bookmarks"));
 const data = querySnapshot.docs.map((doc) => doc.data() as Bookmark);
@@ -25,6 +25,7 @@ export async function createBookmark(
     name,
     url,
     groupId,
+    userId: auth.currentUser.uid,
   });
   const bookmarkDocRef = doc(db, "bookmarks", bookmarkId);
   const docSnapshot = await getDoc(bookmarkDocRef);
@@ -48,7 +49,7 @@ export async function editBookmark(id: string, name: string, url: string) {
   bookmarks.update((bookmarks) => {
     return bookmarks.map((bookmark) => {
       if (bookmark.id === id) {
-        return { id, name, url, groupId: bookmark.groupId };
+        return { id, name, url, groupId: bookmark.groupId, userId: bookmark.userId };
       }
       return bookmark;
     });

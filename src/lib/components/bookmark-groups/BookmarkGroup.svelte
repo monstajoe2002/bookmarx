@@ -10,6 +10,7 @@
     deleteBookmarkGroup,
     updateBookmarkGroup,
   } from "../../../stores/bookmarkGroups";
+  import { auth } from "../../../config/firebase";
   export let name: string;
   export let id: string;
   $: bookmarkName = "";
@@ -30,12 +31,15 @@
           <form
             class="flex flex-col space-y-6"
             action="#"
-            on:submit|preventDefault={() => updateBookmarkGroup(id, name).then(() => {
-              showSuccess = true;
-              showError = false;
-            }).catch(() => {
-              showError = true;
-            })}
+            on:submit|preventDefault={() =>
+              updateBookmarkGroup(id, name)
+                .then(() => {
+                  showSuccess = true;
+                  showError = false;
+                })
+                .catch(() => {
+                  showError = true;
+                })}
           >
             <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
               Edit Group Name
@@ -171,11 +175,11 @@
       </ModalButtonWithIcon>
     </div>
   </div>
-  {#if !$bookmarks.length || !$bookmarks.filter((b) => b.groupId === id).length}
+  {#if !$bookmarks.length || !$bookmarks.filter((b) => b.groupId === id && b.userId === auth.currentUser.uid).length}
     <BookmarkFallback />
   {:else}
     <div class="grid grid-cols-2 grid-rows-2 gap-4 my-8">
-      {#each $bookmarks.filter((b) => b.groupId === id) as { name, id, url }}
+      {#each $bookmarks.filter((b) => b.groupId === id && b.userId === auth.currentUser.uid) as { name, id, url }}
         <BookmarkCard {name} {id} {url} />
       {/each}
     </div>
