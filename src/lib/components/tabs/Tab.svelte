@@ -2,13 +2,12 @@
   import {
     Card,
     Button,
-    A,
     Tooltip,
     Label,
     Input,
     Select,
   } from "flowbite-svelte";
-  import { activeTabs, switchToTab } from "../../../stores/activeTabs";
+  import { switchToTab } from "../../../stores/activeTabs";
   import ModalButtonWithIcon from "../misc/ModalButtonWithIcon.svelte";
   import { createBookmark } from "../../../stores/bookmarks";
   import { bookmarkGroups } from "../../../stores/bookmarkGroups";

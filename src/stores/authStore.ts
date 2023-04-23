@@ -1,5 +1,4 @@
 import { writable } from "svelte/store";
-import { auth } from "../config/firebase";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -9,12 +8,14 @@ import {
   type UserInfo,
 } from "firebase/auth";
 
+import { auth } from "../config/firebase";
+
 type AuthUser = User & UserInfo;
 
 export const authStore = writable<AuthUser | null>();
 
 export const signUp = async (email: string, password: string) => {
-  createUserWithEmailAndPassword(auth, email, password)
+  await createUserWithEmailAndPassword(auth, email, password)
     .then(() => {
       // Signed in
       logIn(email, password);
@@ -32,7 +33,7 @@ export const signUp = async (email: string, password: string) => {
 };
 
 export const logIn = async (email: string, password: string) => {
-  signInWithEmailAndPassword(auth, email, password)
+  await signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
@@ -48,7 +49,7 @@ export const logIn = async (email: string, password: string) => {
     });
 };
 export const signOut = async () => {
-  auth.signOut();
+  await auth.signOut();
 };
 
 onAuthStateChanged(auth, (user) => {

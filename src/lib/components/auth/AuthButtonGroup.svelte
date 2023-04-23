@@ -7,10 +7,8 @@
     Label,
     Modal,
   } from "flowbite-svelte";
-  import { authStore, logIn, signUp } from "../../../stores/authStore";
+  import { logIn, signUp } from "../../../stores/authStore";
   import ErrorAlert from "../misc/ErrorAlert.svelte";
-  import { sendEmailVerification } from "firebase/auth";
-  import { auth } from "../../../config/firebase";
   let toggleLoginModal = false;
   let toggleSignupModal = false;
   $: showError = false;

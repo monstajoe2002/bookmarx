@@ -6,7 +6,6 @@
   import ActiveTabs from "./lib/components/tabs/ActiveTabs.svelte";
   import { authStore } from "./stores/authStore";
   import { bookmarkGroups } from "./stores/bookmarkGroups";
-  import AuthButtonGroup from "./lib/components/auth/AuthButtonGroup.svelte";
   import { auth } from "./config/firebase";
 </script>
 

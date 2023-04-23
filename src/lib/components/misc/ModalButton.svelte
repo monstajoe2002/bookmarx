@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Button, Modal, Label, Input, Checkbox } from 'flowbite-svelte'
+    import { Button, Modal } from 'flowbite-svelte'
     let formModal = false;
     export let text:string;
   </script>
