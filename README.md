@@ -1,47 +1,39 @@
-# Svelte + TS + Vite
+﻿# Bookmarx
 
-This template should help get you started developing with Svelte and TypeScript in Vite.
+Bookmarx is a Chromium Extension that replaces Chrome's default New Tab page with a Bookmarx page where users can view, edit and delete their bookmarks. They can also be grouped according to the user's preference.
 
-## Recommended IDE Setup
+**NOTE**: This extension is in **alpha**, meaning some features or capabilities are subject to change, in addition to unexpected bugs or errors. If you come across problems, it would help greatly to open issues so that I can fix them as quickly as possible.
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+## Features
 
-## Need an official Svelte framework?
+- [x] Authentication using email and password
+- [x] View all active tabs
+- [x] Save active tab as bookmark
+- [x] Create, edit, delete a bookmark/bookmark group
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+ Coming soon/TBD:
 
-## Technical considerations
+- [ ] Release to Chrome Web Store
+- [ ] Dark mode
+- [ ] OAuth integration
+- [ ] CI/CD
+- [ ] Automated Testing
 
-**Why use this over SvelteKit?**
+## Why?
 
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
+The idea came about while I was using [tabExtend](https://www.tabextend.com), a popular Chrome extension which also replaces the default new tab with a custom one. It has quickly became a constant in my workspace, but my free account allows up to only 30 saves. That's when it hit me: I  can build my own  **free** and **open-source** alternative with unlimited saves.
 
-This template contains as little as possible to get started with Vite + TypeScript + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
+## Setup
 
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
+    git clone https://github.com/monstajoe2002/bookmarx.git
+    cd bookmarx/
+    npm install
+    npm run dev  # (run a dev server)
+    npm run build # (build the extension)
+Afterwards, load the extension into the browser
 
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
-
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
-
-**Why include `.vscode/extensions.json`?**
-
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
-
-**Why enable `allowJs` in the TS template?**
-
-While `allowJs: false` would indeed prevent the use of `.js` files in the project, it does not prevent the use of JavaScript syntax in `.svelte` files. In addition, it would force `checkJs: false`, bringing the worst of both worlds: not being able to guarantee the entire codebase is TypeScript, and also having worse typechecking for the existing JavaScript. In addition, there are valid use cases in which a mixed codebase may be relevant.
-
-**Why is HMR not preserving my local component state?**
-
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/rixo/svelte-hmr#svelte-hmr).
-
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
-
-```ts
-// store.ts
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
-```
+ 1. Open the **Extensions** page
+ 2. Enable **Developer Mode**
+ 3. Click **Load unpacked**
+ 4. Navigate to the `dist` folder in your project
+ 5. Click **Select Folder**
