@@ -1,13 +1,5 @@
 <script lang="ts">
-  import {
-    Card,
-    Button,
-    Label,
-    Input,
-    Alert,
-    A,
-    Tooltip,
-  } from "flowbite-svelte";
+  import { Card, Button, Label, Input, A, Tooltip } from "flowbite-svelte";
   import ModalButtonWithIcon from "../misc/ModalButtonWithIcon.svelte";
   import { deleteBookmark, editBookmark } from "../../../stores/bookmarks";
   import ErrorAlert from "../misc/ErrorAlert.svelte";

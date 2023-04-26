@@ -4,6 +4,7 @@
   import ModalButtonWithIcon from "../misc/ModalButtonWithIcon.svelte";
   import { createBookmark } from "../../../stores/bookmarks";
   import { bookmarkGroups } from "../../../stores/bookmarkGroups";
+  import { authStore } from "../../../stores/authStore";
   export let name: string;
   export let id: number;
   export let url: string;
@@ -33,39 +34,41 @@
     Switch to: {name}
   </Tooltip>
 
-  <ModalButtonWithIcon class="w-fit ml-4" color="green">
-    <svelte:fragment slot="icon">
-      <i class="bi bi-bookmark-plus-fill"></i>
-    </svelte:fragment>
-    <svelte:fragment slot="content">
-      <form
-        class="flex flex-col space-y-6"
-        action="#"
-        on:submit|preventDefault="{() => {
-          createBookmark(name, url, groupId);
-        }}">
-        <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
-          Add Bookmark
-        </h3>
-        <Label class="space-y-2">
-          <span>Name</span>
-          <Input
-            type="text"
-            name="name"
-            placeholder="Example"
-            required
-            bind:value="{name}" />
-        </Label>
-        <Label>
-          Select a group
-          <Select
-            class="mt-2"
-            items="{groups}"
-            bind:value="{selected}"
-            required />
-        </Label>
-        <Button type="submit" color="green" class="w-full">Add</Button>
-      </form>
-    </svelte:fragment>
-  </ModalButtonWithIcon>
+  {#if $authStore}
+    <ModalButtonWithIcon class="w-fit ml-4" color="green">
+      <svelte:fragment slot="icon">
+        <i class="bi bi-bookmark-plus-fill"></i>
+      </svelte:fragment>
+      <svelte:fragment slot="content">
+        <form
+          class="flex flex-col space-y-6"
+          action="#"
+          on:submit|preventDefault="{() => {
+            createBookmark(name, url, groupId);
+          }}">
+          <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
+            Add Bookmark
+          </h3>
+          <Label class="space-y-2">
+            <span>Name</span>
+            <Input
+              type="text"
+              name="name"
+              placeholder="Example"
+              required
+              bind:value="{name}" />
+          </Label>
+          <Label>
+            Select a group
+            <Select
+              class="mt-2"
+              items="{groups}"
+              bind:value="{selected}"
+              required />
+          </Label>
+          <Button type="submit" color="green" class="w-full">Add</Button>
+        </form>
+      </svelte:fragment>
+    </ModalButtonWithIcon>
+  {/if}
 </Card>

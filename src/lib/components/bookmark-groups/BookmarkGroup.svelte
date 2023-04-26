@@ -1,6 +1,6 @@
 <script lang="ts">
   import BookmarkCard from "../bookmarks/BookmarkCard.svelte";
-  import { Alert, Button, Input, Label } from "flowbite-svelte";
+  import { Button, Input, Label } from "flowbite-svelte";
   import ModalButton from "../misc/ModalButton.svelte";
   import { bookmarks, createBookmark } from "../../../stores/bookmarks";
   import BookmarkFallback from "../bookmarks/BookmarkFallback.svelte";

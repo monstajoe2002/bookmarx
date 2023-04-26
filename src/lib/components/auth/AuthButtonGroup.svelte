@@ -1,12 +1,5 @@
 <script lang="ts">
-  import {
-    Alert,
-    Button,
-    ButtonGroup,
-    Input,
-    Label,
-    Modal,
-  } from "flowbite-svelte";
+  import { Button, ButtonGroup, Input, Label, Modal } from "flowbite-svelte";
   import { logIn, signUp } from "../../../stores/authStore";
   import ErrorAlert from "../misc/ErrorAlert.svelte";
   import SuccessAlert from "../misc/SuccessAlert.svelte";
