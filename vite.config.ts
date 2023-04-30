@@ -5,7 +5,13 @@ import manifest from "./manifest.json";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [svelte(), crx({ manifest })],
-  build:{
-    target: 'esnext'
-  }
+  build: {
+    target: "esnext",
+    rollupOptions: {
+      output: {
+        format: "es",
+        dir: "dist/",
+      },
+    },
+  },
 });
