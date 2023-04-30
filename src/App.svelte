@@ -1,12 +1,20 @@
 <script lang="ts">
   import { Alert } from "flowbite-svelte";
   import Container from "./layout/Container.svelte";
-  import BookmarkGroup from "./lib/components/bookmark-groups/BookmarkGroup.svelte";
+  import type { SvelteComponent } from "svelte";
+  let BookmarkGroup: typeof SvelteComponent;
   import BookmarkGroupFallback from "./lib/components/bookmark-groups/BookmarkGroupFallback.svelte";
   import ActiveTabs from "./lib/components/tabs/ActiveTabs.svelte";
   import { authStore } from "./stores/authStore";
   import { bookmarkGroups } from "./stores/bookmarkGroups";
   import { auth } from "./config/firebase";
+  import { onMount } from "svelte";
+  onMount(async () => {
+    await $bookmarkGroups;
+    BookmarkGroup = (
+      await import("./lib/components/bookmark-groups/BookmarkGroup.svelte")
+    ).default;
+  });
 </script>
 
 <Container>

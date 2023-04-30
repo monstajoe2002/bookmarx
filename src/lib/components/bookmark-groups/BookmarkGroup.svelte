@@ -1,5 +1,6 @@
 <script lang="ts">
-  import BookmarkCard from "../bookmarks/BookmarkCard.svelte";
+  import type { SvelteComponent } from "svelte";
+  let BookmarkCard: typeof SvelteComponent;
   import { Button, Input, Label } from "flowbite-svelte";
   import ModalButton from "../misc/ModalButton.svelte";
   import { bookmarks, createBookmark } from "../../../stores/bookmarks";
@@ -12,12 +13,17 @@
   } from "../../../stores/bookmarkGroups";
   import { auth } from "../../../config/firebase";
   import SuccessAlert from "../misc/SuccessAlert.svelte";
+  import { onMount } from "svelte";
   export let name: string;
   export let id: string;
   $: bookmarkName = "";
   $: bookmarkUrl = "";
   $: showError = false;
   $: showSuccess = false;
+  onMount(async () => {
+    await $bookmarks;
+    BookmarkCard = (await import("../bookmarks/BookmarkCard.svelte")).default;
+  });
 </script>
 
 <div class="bg-blue-200 rounded-md p-6 max-w-screen my-6">
@@ -162,7 +168,11 @@
   {:else}
     <div class="grid grid-cols-2 grid-rows-2 gap-4 my-8">
       {#each $bookmarks.filter((b) => b.groupId === id && b.userId === auth.currentUser.uid) as { name, id, url }}
-        <BookmarkCard name="{name}" id="{id}" url="{url}" />
+        <svelte:component
+          this="{BookmarkCard}"
+          name="{name}"
+          id="{id}"
+          url="{url}" />
       {/each}
     </div>
   {/if}
