@@ -21,7 +21,7 @@
   $: showError = false;
   $: showSuccess = false;
   onMount(async () => {
-    await $bookmarks;
+    await Promise.resolve($bookmarks);
     BookmarkCard = (await import("../bookmarks/BookmarkCard.svelte")).default;
   });
 </script>

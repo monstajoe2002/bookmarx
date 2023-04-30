@@ -10,7 +10,7 @@
   import { auth } from "./config/firebase";
   import { onMount } from "svelte";
   onMount(async () => {
-    await $bookmarkGroups;
+    await Promise.resolve($bookmarkGroups);
     BookmarkGroup = (
       await import("./lib/components/bookmark-groups/BookmarkGroup.svelte")
     ).default;
