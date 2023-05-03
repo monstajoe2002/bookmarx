@@ -1,6 +1,12 @@
 <script lang="ts">
+  import { onMount, type SvelteComponent } from "svelte";
   import { activeTabs } from "../../../stores/activeTabs";
-  import Tab from "./Tab.svelte";
+  // import Tab from "./Tab.svelte";
+  let Tab: typeof SvelteComponent;
+  onMount(async () => {
+    await Promise.resolve($activeTabs);
+    Tab = (await import("./Tab.svelte")).default;
+  });
 </script>
 
 {#if !$activeTabs.length}
@@ -13,7 +19,7 @@
     class="flex max-w-full overflow-x-auto shadow-xl p-6 gap-4 rounded-md mb-8 bg-slate-200 dark:bg-slate-100">
     {#each $activeTabs as { name, id, url } (id)}
       {#if name}
-        <Tab name="{name}" id="{id}" url="{url}" />
+        <svelte:component this="{Tab}" name="{name}" id="{id}" url="{url}" />
       {/if}
     {/each}
   </div>
