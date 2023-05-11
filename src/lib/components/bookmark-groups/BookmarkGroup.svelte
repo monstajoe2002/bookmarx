@@ -26,7 +26,7 @@
   });
 </script>
 
-<div class="bg-blue-200 rounded-md p-6 max-w-screen my-6">
+<div class="bg-blue-200 rounded-md p-6 max-w-screen my-6 dark:bg-blue-800">
   <div class="flex justify-between">
     <div class="flex gap-4">
       <h1 class="text-4xl font-semibold dark:text-white">{name}</h1>

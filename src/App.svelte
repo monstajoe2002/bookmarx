@@ -36,7 +36,7 @@
     <BookmarkGroupFallback />
   {:else}
     {#each $bookmarkGroups.filter((b) => b.userId === auth.currentUser.uid) as { name, id }}
-      <svelte:component this="{BookmarkGroup}" name="{name}" id="{id}" />
+      <svelte:component this="{BookmarkGroup}" name="{name}" id="{id}"  />
     {/each}
   {/if}
 </Container>
