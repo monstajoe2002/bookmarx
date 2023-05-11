@@ -10,11 +10,11 @@ Bookmarx is a Chromium Extension that replaces Chrome's default New Tab page wit
 - [x] View all active tabs
 - [x] Save active tab as bookmark
 - [x] Create, edit, delete a bookmark/bookmark group
+- [x] Dark mode
 
  Coming soon/TBD:
 
 - [ ] Release to Chrome Web Store
-- [ ] Dark mode
 - [ ] OAuth integration
 - [ ] CI/CD
 - [ ] Automated Testing
