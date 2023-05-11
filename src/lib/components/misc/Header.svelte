@@ -1,12 +1,13 @@
 <script lang="ts">
-  import { Navbar, Button, Label, Input, P } from "flowbite-svelte";
+  import { Navbar, Button, Label, Input, P, DarkMode } from "flowbite-svelte";
   import ModalButton from "./ModalButton.svelte";
   import { createBookmarkGroup } from "../../../stores/bookmarkGroups";
   import AuthButtonGroup from "../auth/AuthButtonGroup.svelte";
   import { authStore, signOut } from "../../../stores/authStore";
   import SuccessAlert from "./SuccessAlert.svelte";
   import ErrorAlert from "./ErrorAlert.svelte";
-
+  let btnClass =
+    "text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-xl p-2 ml-4 -mr-4";
   $: name = "";
   $: showSuccess = false;
   $: showError = false;
@@ -63,5 +64,6 @@
         {/if}
       </form>
     </ModalButton>
+    <DarkMode {btnClass} />
   </div>
 </Navbar>
