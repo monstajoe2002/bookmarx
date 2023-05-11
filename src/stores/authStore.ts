@@ -1,7 +1,6 @@
 import { writable } from "svelte/store";
 import {
   createUserWithEmailAndPassword,
-  getRedirectResult,
   GoogleAuthProvider,
   onAuthStateChanged,
   sendEmailVerification,
