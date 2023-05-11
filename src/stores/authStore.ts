@@ -1,9 +1,12 @@
 import { writable } from "svelte/store";
 import {
   createUserWithEmailAndPassword,
+  getRedirectResult,
+  GoogleAuthProvider,
   onAuthStateChanged,
   sendEmailVerification,
   signInWithEmailAndPassword,
+  signInWithRedirect,
   type User,
   type UserInfo,
 } from "firebase/auth";
@@ -13,6 +16,7 @@ import { auth } from "../config/firebase";
 type AuthUser = User & UserInfo;
 
 export const authStore = writable<AuthUser | null>();
+const googleProvider = new GoogleAuthProvider();
 
 export const signUp = async (email: string, password: string) => {
   await createUserWithEmailAndPassword(auth, email, password)
@@ -48,6 +52,22 @@ export const logIn = async (email: string, password: string) => {
       // ..
     });
 };
+
+export const authWithGoogle = async () => {
+  await signInWithRedirect(auth, googleProvider)
+    .then(() => {
+      const user = auth.currentUser;
+      return user;
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.error(errorCode, errorMessage);
+      // ..
+    });
+  
+};
+
 export const signOut = async () => {
   await auth.signOut();
 };

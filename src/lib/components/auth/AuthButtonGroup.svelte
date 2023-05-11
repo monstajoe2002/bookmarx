@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Button, ButtonGroup, Input, Label, Modal } from "flowbite-svelte";
-  import { logIn, signUp } from "../../../stores/authStore";
+  import { authWithGoogle, logIn, signUp } from "../../../stores/authStore";
   import ErrorAlert from "../misc/ErrorAlert.svelte";
   import SuccessAlert from "../misc/SuccessAlert.svelte";
   let toggleLoginModal = false;
@@ -60,7 +60,11 @@
         bind:value="{password}" />
     </Label>
 
-    <Button type="submit" class="w-full1">Continue</Button>
+    <Button type="submit" class="w-full">Continue</Button>
+    <Button class="w-full gap-2" color="blue" on:click="{authWithGoogle}" outline>
+      <i class="bi bi-google"></i>
+      Continue with Google (Experimental)
+    </Button>
   </form>
 </Modal>
 
@@ -105,7 +109,7 @@
         bind:value="{password}" />
     </Label>
 
-    <Button type="submit" class="w-full1">Continue</Button>
+    <Button type="submit" class="w-full">Continue</Button>
   </form>
   {#if showError}
     <ErrorAlert>
